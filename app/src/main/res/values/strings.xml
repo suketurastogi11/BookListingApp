@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookListingApp</string>
+
+    <string name="search_bar_hint">Search for Book...</string>
+    <string name="search_button">Search</string>
+    <string name="search_text">Search for Book By Typing Its Name In Search Bar And Press Search Button.</string>
+</resources>
