@@ -1,5 +1,8 @@
 package com.example.suketurastogi.booklistingapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +63,7 @@ public class BookListActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.search_button);
 
         bookList = (ListView) findViewById(R.id.book_list);
+        bookList.setEmptyView( findViewById( R.id.empty_list_view ) );
 
         bookListAdapter = new BookListAdapter(BookListActivity.this, bookArrayList);
 
@@ -72,12 +76,25 @@ public class BookListActivity extends AppCompatActivity {
                 String bookInfo = searchBar.getText().toString().replaceAll(" ", "+");
                 bookListServerUrl = bookListUrl + bookInfo;
 
-                // Perform the network request
-                BooksAsyncTask task = new BooksAsyncTask();
-                task.execute();
+                if(isNetworkAvailable()){
+                    // Perform the network request
+                    BooksAsyncTask task = new BooksAsyncTask();
+                    task.execute();
+                }else {
+                    Toast.makeText(getApplicationContext(),"No Internet Connection Available",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
+
+    //Method Returns Connectivity to Internet in Boolean Value.
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
     public class BooksAsyncTask extends AsyncTask<String, Void, String> {
 

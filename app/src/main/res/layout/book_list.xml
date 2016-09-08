@@ -37,6 +37,13 @@
         android:visibility="visible"
         android:text="@string/search_text"/>
 
+    <TextView
+        android:id="@+id/empty_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_view_is_empty"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/book_list"
         android:layout_width="match_parent"
